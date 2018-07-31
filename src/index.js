@@ -53,6 +53,7 @@ class App extends Component {
 
     return (
       <div>
+        <h1>Pictsy</h1>
         <SearchBar onSearchTermChange={picSearch}/>
       </div>
     );
