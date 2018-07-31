@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './components/searchbar';
+import ImageList from './components/image_list'
 import Fetch from 'whatwg-fetch'
 const API_KEY = '1c5cc83cd286417';
 
@@ -17,11 +18,11 @@ class App extends Component {
       selectedImg: null
     };
 
-    this.picSearch('star wars')
+    this.imgSearch('star wars')
     
   } 
 
-    picSearch(term){
+    imgSearch(term){
       var imgurURL = 'https://api.imgur.com/3/gallery/t/';
 
       return fetch(imgurURL + term, {
@@ -49,12 +50,13 @@ class App extends Component {
     }
 
   render () {
-    const picSearch = _.debounce((term) => {this.picSearch(term)}, 600);
+    const imgSearch = _.debounce((term) => {this.imgSearch(term)}, 600);
 
     return (
       <div>
         <h1>Pictsy</h1>
-        <SearchBar onSearchTermChange={picSearch}/>
+        <SearchBar onSearchTermChange={imgSearch}/>
+        <ImageList images={this.state.images}/>
       </div>
     );
   }
