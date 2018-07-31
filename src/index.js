@@ -39,7 +39,8 @@ class App extends Component {
             imgData.push(data.data.items[img])
           }
         }
-          console.log(imgData)
+          
+          
         this.setState({
           images: imgData,
           selectedImg: imgData[0]

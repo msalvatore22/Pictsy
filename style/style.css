@@ -29,3 +29,8 @@
 .list-group-item:hover {
   background-color: #eee;
 }
+
+.media-object {
+  height: 240px;
+  width: 240px;
+}

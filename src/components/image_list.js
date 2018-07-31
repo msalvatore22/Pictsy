@@ -2,8 +2,8 @@ import React from 'react';
 import ImageListItem from "./image_list_item"
 
 const ImageList = (props) => {
-  const imageItems = props.images.map((img) => {
-    return <ImageListItem image={img} />
+  const imageItems = props.images.map((image) => {
+    return <ImageListItem key={image.id} image={image} />
   })
   
   return (
@@ -11,7 +11,6 @@ const ImageList = (props) => {
       {imageItems}
     </ul>
   );
-
 };
 
 export default ImageList;
