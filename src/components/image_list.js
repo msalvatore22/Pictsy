@@ -3,7 +3,12 @@ import ImageListItem from "./image_list_item"
 
 const ImageList = (props) => {
   const imageItems = props.images.map((image) => {
-    return <ImageListItem key={image.id} image={image} />
+    return (
+    <ImageListItem 
+      onImageSelect={props.onImageSelect}
+      key={image.id}
+      image={image}  />
+    )
   })
   
   return (

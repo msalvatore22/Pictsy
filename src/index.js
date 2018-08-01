@@ -16,7 +16,7 @@ class App extends Component {
 
     this.state = { 
       images: [],
-      selectedImg: null
+      selectedImage: null
     };
 
     this.imgSearch('star wars')
@@ -45,7 +45,7 @@ class App extends Component {
         
         this.setState({
           images: imgData,
-          selectedImg: imgData[0]
+          selectedImage: imgData[0]
         })
       }).catch((error) => {
         console.log('request failed', error)
@@ -59,8 +59,12 @@ class App extends Component {
       <div>
         <h1>Pictsy</h1>
         <SearchBar onSearchTermChange={imgSearch}/>
-        <ImageDetail image={this.state.images[0]}/>
-        <ImageList images={this.state.images}/>
+        <ImageDetail image={this.state.selectedImage}/>
+        <ImageList 
+        //pass a callback function to imageList to update
+        //selected video in in App state
+          onImageSelect={selectedImage => this.setState({selectedImage})}
+          images={this.state.images}/>
       </div>
     );
   }
