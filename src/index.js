@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './components/searchbar';
 import ImageList from './components/image_list'
+import ImageDetail from './components/image_detail'
 import Fetch from 'whatwg-fetch'
 const API_KEY = '1c5cc83cd286417';
 
@@ -36,17 +37,18 @@ class App extends Component {
 
         for(let img in data.data.items){
           if(data.data.items[img].images){
-            imgData.push(data.data.items[img])
+            if (data.data.items[img].images[0].type === 'image/jpeg' || data.data.items[img].images[0].type === 'image/gif' ) {
+              imgData.push(data.data.items[img]);
+            }
           }
         }
-          
-          
+        
         this.setState({
           images: imgData,
           selectedImg: imgData[0]
         })
       }).catch((error) => {
-        console.log(error)
+        console.log('request failed', error)
       })
     }
 
@@ -57,6 +59,7 @@ class App extends Component {
       <div>
         <h1>Pictsy</h1>
         <SearchBar onSearchTermChange={imgSearch}/>
+        <ImageDetail image={this.state.images[0]}/>
         <ImageList images={this.state.images}/>
       </div>
     );
