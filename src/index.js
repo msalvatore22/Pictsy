@@ -16,13 +16,12 @@ class App extends Component {
 
     this.state = { 
       images: [],
-      selectedImage: null
+      selectedImage: null,
     };
-
+    //sets the inital search to star wars
     this.imgSearch('star wars')
     
   } 
-
     imgSearch(term){
       var imgurURL = 'https://api.imgur.com/3/gallery/t/';
 
@@ -47,13 +46,17 @@ class App extends Component {
           images: imgData,
           selectedImage: imgData[0]
         })
+
       }).catch((error) => {
         console.log('request failed', error)
       })
     }
 
+
   render () {
-    const imgSearch = _.debounce((term) => {this.imgSearch(term)}, 600);
+    //adds a delay to the img search method to prevent instant
+    //rendering
+    const imgSearch = _.debounce((term) => {this.imgSearch(term)}, 500);
 
     return (
       <div>

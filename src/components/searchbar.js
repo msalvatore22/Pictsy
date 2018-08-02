@@ -19,6 +19,8 @@ class SearchBar extends Component {
 
   onInputChange(term){
     this.setState({term});
+    //callback from app to update the search term and kick off
+    // a new search
     this.props.onSearchTermChange(term);
   }
 }

@@ -7,12 +7,10 @@
   width: 75%;
 }
 
-.video-item img {
-  max-width: 64px;
-}
 
-.video-detail .details {
-  margin-top: 10px;
+.image-detail .details {
+  margin: 20px 0;
+  width: 32rem;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -34,6 +32,10 @@
   height: 18rem;
   width: 18rem;
   border-radius: 2%;
+}
+
+.media-heading {
+  padding: 10px;
 }
 
 .selected-image{
