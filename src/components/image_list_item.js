@@ -1,5 +1,10 @@
 import React from 'react';
 
+const deleteComment = (e) => {
+  let commentList = document.querySelector('.comment-list');
+  commentList.innerHTML = ''
+}
+
 const ImageListItem = ({image, onImageSelect}) => {
   
   let imageURL = image.images[0].link
@@ -11,7 +16,7 @@ const ImageListItem = ({image, onImageSelect}) => {
     <li onClick={()=> onImageSelect(image)} className="list-group-item">
       <div className="image-list media">
         <div className="media">
-          <img className="media-object align-self-center" src={ imageURL } />
+          <a href="#body"><img onClick={ deleteComment } className="media-object align-self-center" src={ imageURL } ></img></a>
         </div>
 
         <div className="media-body">

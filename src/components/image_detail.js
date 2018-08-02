@@ -10,8 +10,10 @@ const CommentCreator = (event) => {
 
   li.innerHTML = `<div><h3>${author.value}</h3><br /><h5>${content.value}</h5></div>`
 
-
-  return ul.appendChild(li)
+    ul.appendChild(li)
+    author.value = '';
+    content.value = '';
+  
 }
 
 
