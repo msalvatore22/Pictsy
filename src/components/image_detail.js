@@ -4,11 +4,11 @@ const CommentCreator = (event) => {
   event.preventDefault();
 
   let author = document.querySelector('#author')
-  let conent = document.querySelector('#content')
+  let content = document.querySelector('#content')
   let ul = document.querySelector('.comment-list')
   let li = document.createElement('li')
 
-  li.innerHTML = `<div><h3>${author.value}</h3><br /><h5>${ContentScriptGlobalScope.value}</h5></div>`
+  li.innerHTML = `<div><h3>${author.value}</h3><br /><h5>${content.value}</h5></div>`
 
 
   return ul.appendChild(li)
