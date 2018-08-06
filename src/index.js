@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import SearchBar from './components/searchbar';
 import ImageList from './components/image_list'
 import ImageDetail from './components/image_detail'
-import Filter from './components/image_filter'
 import Fetch from 'whatwg-fetch'
 const API_KEY = '1c5cc83cd286417';
 
