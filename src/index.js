@@ -17,16 +17,13 @@ class App extends Component {
 
     this.state = { 
       images: [],
-      images2: [],
+      gifs: [],
+      viral: [],
       selectedImage: null,
-      filter: {
-        viral: true,
-        gif: true,
-      }
+      
 
     };
     
-    this.filterImages = this.filterImages.bind(this)
     //sets the inital search to star wars
     this.imgSearch('star wars')
     
@@ -41,22 +38,36 @@ class App extends Component {
       }).then((response) => {
          return response.json();
       }).then((data) => {
-        let imgData = []
+        let allImages = []
+        let gifImages = []
+        let viralImages = []
 
-        console.log(data.data.items[1].tags[1].name)
+        console.log(data.data.items[4].images[0].type)
 
         for(let img in data.data.items){
           if(data.data.items[img].images){
             if (data.data.items[img].images[0].type === 'image/jpeg' || data.data.items[img].images[0].type === 'image/gif' ) {
-              imgData.push(data.data.items[img]);
+              allImages.push(data.data.items[img]);
+            }
+            
+            if (data.data.items[img].images[0].type === 'image/gif') {
+              gifImages.push(data.data.items[img]);
+            }
+            
+            if (data.data.items[img].in_most_viral === true){
+              viralImages.push(data.data.items[img]);
             }
           }
         }
-        
+        console.log(gifImages)
+        console.log(viralImages)
+        console.log(allImages)
+
         this.setState({
-          images: imgData,
-          images2: imgData,
-          selectedImage: imgData[0]
+          images: allImages,
+          gifs: gifImages,
+          viral: viralImages,
+          selectedImage: allImages[0]
         })
        
 
@@ -64,53 +75,6 @@ class App extends Component {
         console.log('request failed', error)
       })
     }
-
-    filterImages(event){
-      let originalState = this.state.images2
-      let value = this.state.filter[name];
-      this.state.filter[name] = !value;
-      let name = event.target.name;
-      let images = this.state.images;
-      let filterArray = []
-      // let tags = []
-
-      // console.log(tags)
-      
-      // for(let i=0; i < images.length; i++){
-      //   return tags.push(images.tags[i].name)
-      // }
-
-      //loop through to check for image filter
-
-      images.forEach((img) => {
-        console.log(img.images[0].type)
-        if (value === true && name === 'gif' && img.images[0].type === 'image/gif') {
-          filterArray.push(img);
-          console.log(filterArray)
-        } else if (value === true && name === 'viral' && img.in_most_viral === true) {
-          filterArray.push(img);
-        } else if (value === false) {
-          filterArray = originalState
-        }
-      })
-      
-      if (filterArray.length < 1) {
-        alert('No images returned for this filter')
-        filterArray = originalState;
-        this.setState({
-          filter: {
-            viral: true,
-            gif: true
-          }
-        })
-      }
-
-      this.setState({
-        images: filterArray
-      })
-
-    }
-
 
   render () {
     //adds a delay to the img search method to prevent instant
@@ -127,7 +91,10 @@ class App extends Component {
         //pass a callback function to imageList to update
         //selected image in in App state
           onImageSelect={selectedImage => this.setState({selectedImage})}
-          images={this.state.images}/>
+          gifs={this.state.gifs}
+          viral={this.state.viral}
+          images={this.state.images}
+           />
       </div>
     );
   }
