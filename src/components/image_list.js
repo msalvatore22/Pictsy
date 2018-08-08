@@ -11,40 +11,12 @@ const ImageList = (props) => {
     )
   })
 
-  const gifItems = props.gifs.map((image) => {
-    return (
-    <ImageListItem 
-      onImageSelect={props.onImageSelect}
-      key={image.id}
-      image={image}  />
-    )
-  })
-
-  const viralItems = props.viral.map((image) => {
-    return (
-    <ImageListItem 
-      onImageSelect={props.onImageSelect}
-      key={image.id}
-      image={image}  />
-    )
-  })
   
   
   return (
-    <div>
-      <input onClick={(event) => { filterViral(event) } } type="button" id="viral" value='Viral' name="viral" />
-      <input onClick={(event) => { filterGif(event) } } type="button" value='Gif' name="gif"/>
-    
+    <div>    
       <ul className="col-md-4 list-group">
         {imageItems}
-
-        gifs
-
-        {gifItems}
-
-        viral
-
-        {viralItems}
       </ul>
     </div>
     

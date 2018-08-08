@@ -19,63 +19,109 @@ class App extends Component {
       gifs: [],
       viral: [],
       selectedImage: null,
-      
+      checkboxState: true,
 
     };
     
     //sets the inital search to star wars
     this.imgSearch('star wars')
     
-  } 
-    imgSearch(term){
-      var imgurURL = 'https://api.imgur.com/3/gallery/t/';
+  }
+  
+  imgSearch(term){
+    var imgurURL = 'https://api.imgur.com/3/gallery/t/';
 
-      return fetch(imgurURL + term, {
-        headers: {
-          'Authorization': 'Client-ID ' + API_KEY
-        }
-      }).then((response) => {
-         return response.json();
-      }).then((data) => {
-        let allImages = []
-        let gifImages = []
-        let viralImages = []
+    return fetch(imgurURL + term, {
+      headers: {
+        'Authorization': 'Client-ID ' + API_KEY
+      }
+        }).then((response) => {
+            return response.json();
+        }).then((data) => {
+          let allImages = []
+          let gifImages = []
+          let viralImages = []
 
-        console.log(data.data.items[4].images[0].type)
+      console.log(data.data.items[4].images[0].type)
 
-        for(let img in data.data.items){
-          if(data.data.items[img].images){
-            if (data.data.items[img].images[0].type === 'image/jpeg' || data.data.items[img].images[0].type === 'image/gif' ) {
-              allImages.push(data.data.items[img]);
-            }
-            
-            if (data.data.items[img].images[0].type === 'image/gif') {
-              gifImages.push(data.data.items[img]);
-            }
-            
-            if (data.data.items[img].in_most_viral === true){
-              viralImages.push(data.data.items[img]);
-            }
+      for(let img in data.data.items){
+        if(data.data.items[img].images){
+          if (data.data.items[img].images[0].type === 'image/jpeg' || data.data.items[img].images[0].type === 'image/gif' ) {
+            allImages.push(data.data.items[img]);
+          }
+          
+          if (data.data.items[img].images[0].type === 'image/gif') {
+            gifImages.push(data.data.items[img]);
+          }
+          
+          if (data.data.items[img].in_most_viral === true){
+            viralImages.push(data.data.items[img]);
           }
         }
-        console.log(gifImages)
-        console.log(viralImages)
-        console.log(allImages)
+      }
+      console.log(gifImages)
+      console.log(viralImages)
+      console.log(allImages)
 
-        this.setState({
-          images: allImages,
-          gifs: gifImages,
-          viral: viralImages,
-          selectedImage: allImages[0]
-        })
-       
-
-      }).catch((error) => {
-        console.log('request failed', error)
+      this.setState({
+        images: allImages,
+        gifs: gifImages,
+        viral: viralImages,
+        selectedImage: allImages[0]
       })
-    }
+      
+
+    }).catch((error) => {
+      console.log('request failed', error)
+    })
+  }
+
+  onSubmit(e) {
+    e.preventDefault()
+  }
+
+  toggleGif(e) {
+    this.setState({
+      checkboxState: !this.state.checkboxState,
+      images: this.state.gifs
+    })
+  }
+
+  toggleViral(e) {
+    this.setState({
+      checkboxState: !this.state.checkboxState,
+      images: this.state.viral
+    })
+  }
+
+  toggleAllImages(e) {
+    this.setState({
+      checkboxState: !this.state.checkboxState,
+      images: this.state.images
+    })
+  }
 
   render () {
+    const checkbox = (
+      <span>
+        <label>Gifs</label>
+        <input
+          type="checkbox"
+          onClick={this.toggleGif.bind(this)}
+         />
+         <label>Viral</label>
+         <input
+          type="checkbox"
+          onClick={this.toggleViral.bind(this)}
+         />
+         <label>All Images</label>
+         <input
+          type="checkbox"
+          onClick={this.toggleAllImages.bind(this)}
+         />
+      </span>
+    )
+
     //adds a delay to the img search method to prevent instant
     //rendering
     const imgSearch = _.debounce((term) => {this.imgSearch(term)}, 300);
@@ -85,7 +131,12 @@ class App extends Component {
         <h1>Pictsy</h1>
         <SearchBar onSearchTermChange={imgSearch}/>
         <ImageDetail image={this.state.selectedImage}/>
-        <Filter filterImages={ this.filterImages }/>
+        <div>
+          <form onSubmit={this.onSubmit.bind(this)}>
+            {checkbox}
+            <button type="submit">Submit</button>
+          </form>
+        </div>
         <ImageList 
         //pass a callback function to imageList to update
         //selected image in in App state
