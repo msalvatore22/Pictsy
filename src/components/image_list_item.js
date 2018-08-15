@@ -16,11 +16,11 @@ const ImageListItem = ({image, onImageSelect}) => {
     <li onClick={()=> onImageSelect(image)} className="list-group-item">
       <div className="image-list media">
         <div className="media">
-          <a href="#body"><img onClick={ deleteComment } className="media-object align-self-center" src={ imageURL } ></img></a>
+          <a href="#body"><img onClick={ deleteComment } className="media-object" src={ imageURL } ></img></a>
         </div>
 
         <div className="media-body">
-          <div className="media-heading">
+          <div className="image-list-title">
             { imageTitle }
           </div>
         </div>

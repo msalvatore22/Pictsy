@@ -9,13 +9,14 @@ const ImageList = (props) => {
       key={image.id}
       image={image}  />
     )
+    
   })
 
   
   
   return (
-    <div>    
-      <ul className="col-md-4 list-group">
+    <div className="col-md-4 image-list-container">    
+      <ul className="list-group">
         {imageItems}
       </ul>
     </div>

@@ -2,9 +2,9 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './components/searchbar';
-import ImageList from './components/image_list'
-import ImageDetail from './components/image_detail'
-import Fetch from 'whatwg-fetch'
+import ImageList from './components/image_list';
+import ImageDetail from './components/image_detail';
+import Fetch from 'whatwg-fetch';
 const API_KEY = '1c5cc83cd286417';
 
 // Create a new component. This component should produce some HTML.
@@ -42,7 +42,7 @@ class App extends Component {
           let gifImages = []
           let viralImages = []
 
-      console.log(data.data.items[4].images[0].type)
+      
 
       for(let img in data.data.items){
         if(data.data.items[img].images){
@@ -76,25 +76,26 @@ class App extends Component {
     })
   }
 
+
   onSubmit(e) {
     e.preventDefault()
   }
 
-  toggleGif(e) {
+  toggleGif() {
     this.setState({
       checkboxState: !this.state.checkboxState,
       images: this.state.gifs
     })
   }
 
-  toggleViral(e) {
+  toggleViral() {
     this.setState({
       checkboxState: !this.state.checkboxState,
       images: this.state.viral
     })
   }
 
-  toggleAllImages(e) {
+  toggleAllImages() {
     this.setState({
       checkboxState: !this.state.checkboxState,
       images: this.state.images
@@ -128,21 +129,18 @@ class App extends Component {
 
     return (
       <div>
-        <h1>Pictsy</h1>
+        <div className="main-heading"><h1>Pictsy</h1></div>
         <SearchBar onSearchTermChange={imgSearch}/>
         <ImageDetail image={this.state.selectedImage}/>
         <div>
           <form onSubmit={this.onSubmit.bind(this)}>
             {checkbox}
-            <button type="submit">Submit</button>
           </form>
         </div>
         <ImageList 
         //pass a callback function to imageList to update
         //selected image in in App state
           onImageSelect={selectedImage => this.setState({selectedImage})}
-          gifs={this.state.gifs}
-          viral={this.state.viral}
           images={this.state.images}
            />
       </div>
